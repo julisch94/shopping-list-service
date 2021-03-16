@@ -17,6 +17,10 @@ dependencies {
 	// allow for hot-reload during developement
 	developmentOnly 'org.springframework.boot:spring-boot-devtools'
 
+	// database driver
+	runtime 'com.h2database:h2'
+
+	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	providedRuntime 'org.springframework.boot:spring-boot-starter-tomcat'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'

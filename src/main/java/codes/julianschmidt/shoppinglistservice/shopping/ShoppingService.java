@@ -1,6 +1,5 @@
 package codes.julianschmidt.shoppinglistservice.shopping;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.stereotype.Component;
@@ -11,15 +10,18 @@ import codes.julianschmidt.shoppinglistservice.shopping.model.Item;
 @Component
 public class ShoppingService {
 
-    private final List<Item> items = new ArrayList<>();
+    private final ShoppingRepository repository;
+
+    public ShoppingService(ShoppingRepository repository) {
+        this.repository = repository;
+    }
 
     public Item createItem(ItemDto item) {
         Item newItem = new Item(item.getTitle());
-        items.add(newItem);
-        return newItem;
+        return repository.save(newItem);
     }
 
     public List<Item> findAll() {
-        return items;
+        return repository.findAll();
     }
 }
