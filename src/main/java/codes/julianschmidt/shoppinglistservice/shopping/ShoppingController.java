@@ -1,6 +1,5 @@
 package codes.julianschmidt.shoppinglistservice.shopping;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,19 +13,21 @@ import codes.julianschmidt.shoppinglistservice.shopping.model.Item;
 @RestController()
 public class ShoppingController {
 
-    private final List<Item> items = new ArrayList<>();
+    private final ShoppingService service;
+
+    public ShoppingController(ShoppingService service) {
+        this.service = service;
+    }
 
     @PostMapping("/item")
     @ResponseBody
     public Item createItem(ItemDto item) {
-        Item createdItem = new Item(item.getTitle());
-        items.add(createdItem);
-        return createdItem;
+        return service.createItem(item);
     }
 
     @GetMapping("/item")
     public List<Item> findAll() {
-        return items;
+        return service.findAll();
     }
 
 }
