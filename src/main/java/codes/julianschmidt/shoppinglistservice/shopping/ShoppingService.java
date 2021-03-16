@@ -4,7 +4,8 @@ import java.util.List;
 
 import org.springframework.stereotype.Component;
 
-import codes.julianschmidt.shoppinglistservice.shopping.dto.ItemDto;
+import codes.julianschmidt.shoppinglistservice.shopping.dto.CreateItemDto;
+import codes.julianschmidt.shoppinglistservice.shopping.dto.UpdateItemDto;
 import codes.julianschmidt.shoppinglistservice.shopping.model.Item;
 
 @Component
@@ -16,7 +17,7 @@ public class ShoppingService {
         this.repository = repository;
     }
 
-    public Item createItem(ItemDto item) {
+    public Item createItem(CreateItemDto item) {
         Item newItem = new Item(item.getTitle());
         return repository.save(newItem);
     }
@@ -27,6 +28,11 @@ public class ShoppingService {
 
     public void deleteItem(long id) {
         repository.deleteById(id);
+    }
+
+    public Item updateItem(UpdateItemDto item) {
+        Item updatedItem = new Item(item.getId(), item.getTitle());
+        return repository.save(updatedItem);
     }
 
 }

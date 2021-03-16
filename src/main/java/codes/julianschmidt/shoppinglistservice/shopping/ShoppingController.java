@@ -5,10 +5,12 @@ import java.util.List;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import codes.julianschmidt.shoppinglistservice.shopping.dto.ItemDto;
+import codes.julianschmidt.shoppinglistservice.shopping.dto.CreateItemDto;
+import codes.julianschmidt.shoppinglistservice.shopping.dto.UpdateItemDto;
 import codes.julianschmidt.shoppinglistservice.shopping.model.Item;
 
 @RestController()
@@ -22,13 +24,18 @@ public class ShoppingController {
 
     @PostMapping("/item")
     @ResponseBody
-    public Item createItem(ItemDto item) {
+    public Item createItem(CreateItemDto item) {
         return service.createItem(item);
     }
 
     @GetMapping("/item")
     public List<Item> findAll() {
         return service.findAll();
+    }
+
+    @PutMapping("/item")
+    public Item updateItem(UpdateItemDto item) {
+        return service.updateItem(item);
     }
 
     @DeleteMapping("/item")

@@ -20,6 +20,11 @@ public class Item {
         this.title = title;
     }
 
+    public Item(Long id, String title) {
+        this.id = id;
+        this.title = title;
+    }
+
     public Long getId() {
         return id;
     }
