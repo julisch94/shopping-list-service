@@ -2,6 +2,7 @@ package codes.julianschmidt.shoppinglistservice.shopping;
 
 import java.util.List;
 
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -28,6 +29,11 @@ public class ShoppingController {
     @GetMapping("/item")
     public List<Item> findAll() {
         return service.findAll();
+    }
+
+    @DeleteMapping("/item")
+    public void deleteItem(long id) {
+        service.deleteItem(id);
     }
 
 }

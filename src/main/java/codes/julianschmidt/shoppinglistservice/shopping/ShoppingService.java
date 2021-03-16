@@ -24,4 +24,9 @@ public class ShoppingService {
     public List<Item> findAll() {
         return repository.findAll();
     }
+
+    public void deleteItem(long id) {
+        repository.deleteById(id);
+    }
+
 }
