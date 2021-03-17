@@ -2,7 +2,9 @@ package codes.julianschmidt.shoppinglistservice.shopping;
 
 import java.util.List;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
+import org.springframework.web.server.ResponseStatusException;
 
 import codes.julianschmidt.shoppinglistservice.shopping.dto.CreateItemDto;
 import codes.julianschmidt.shoppinglistservice.shopping.dto.UpdateItemDto;
@@ -31,8 +33,10 @@ public class ShoppingService {
     }
 
     public Item updateItem(UpdateItemDto item) {
-        Item updatedItem = new Item(item.getId(), item.getTitle());
-        return repository.save(updatedItem);
+        return repository.findById(item.getId())
+                .map(foundItem -> new Item(foundItem.getId(), item.getTitle()))
+                .map(repository::save)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Item not found."));
     }
 
 }
