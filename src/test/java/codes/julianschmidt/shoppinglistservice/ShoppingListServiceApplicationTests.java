@@ -28,6 +28,7 @@ class ShoppingListServiceApplicationTests {
         mockMvc.perform(post("/item")
                 .contentType(MediaType.APPLICATION_JSON)
                 .param("title", "Hello World"))
+                .andExpect(status().is(200))
                 .andExpect(jsonPath("id").value(1))
                 .andExpect(jsonPath("title").value("Hello World"));
     }
@@ -42,6 +43,7 @@ class ShoppingListServiceApplicationTests {
                 .param("title", "my second item"));
 
         mockMvc.perform(get("/item"))
+                .andExpect(status().is(200))
                 .andExpect(jsonPath("[0].id").value(1))
                 .andExpect(jsonPath("[0].title").value("my item"))
                 .andExpect(jsonPath("[1].id").value(2))
@@ -62,6 +64,7 @@ class ShoppingListServiceApplicationTests {
                 .param("id", "1"));
 
         mockMvc.perform(get("/item"))
+                .andExpect(status().is(200))
                 .andExpect(jsonPath("[0].id").value(2))
                 .andExpect(jsonPath("[0].title").value("my second item"));
     }
@@ -76,6 +79,7 @@ class ShoppingListServiceApplicationTests {
                 .contentType(MediaType.APPLICATION_JSON)
                 .param("title", "new title")
                 .param("id", "1"))
+                .andExpect(status().is(200))
                 .andExpect(jsonPath("id").value(1))
                 .andExpect(jsonPath("title").value("new title"));
     }
@@ -101,6 +105,7 @@ class ShoppingListServiceApplicationTests {
                 .param("title", "Hello World"));
 
         mockMvc.perform(get("/item"))
+                .andExpect(status().is(200))
                 .andExpect(jsonPath("[0].id").value(1))
                 .andExpect(jsonPath("[0].title").value("my item"))
                 .andExpect(jsonPath("[1].id").value(2))
