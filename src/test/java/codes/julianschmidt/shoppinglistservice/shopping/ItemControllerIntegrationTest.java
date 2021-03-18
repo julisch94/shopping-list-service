@@ -72,9 +72,10 @@ class ItemControllerIntegrationTest {
 
     @Test
     void deleteShouldReturnErrorWhenNotFound() throws Exception {
-        mockMvc.perform(delete(ENDPOINT + "/1")
+        mockMvc.perform(delete(ENDPOINT + "/42")
                 .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().is(404));
+                .andExpect(status().is(404))
+                .andExpect(status().reason("Item with id '42' not found."));
     }
 
     @Test
@@ -93,11 +94,11 @@ class ItemControllerIntegrationTest {
 
     @Test
     void shouldReturnErrorWhenItemNotFound() throws Exception {
-        mockMvc.perform(put(ENDPOINT + "/1")
+        mockMvc.perform(put(ENDPOINT + "/5")
                 .contentType(MediaType.APPLICATION_JSON)
                 .param("title", "new title"))
                 .andExpect(status().is(404))
-                .andExpect(status().reason("Item not found."));
+                .andExpect(status().reason("Item with id '5' not found."));
     }
 
     @Test

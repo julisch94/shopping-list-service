@@ -29,7 +29,7 @@ public class ItemService {
 
     public void deleteItem(long id) {
         if (!repository.existsById(id)) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Item not found.");
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, String.format("Item with id '%d' not found.", id));
         }
         repository.deleteById(id);
     }
@@ -38,7 +38,7 @@ public class ItemService {
         return repository.findById(id)
                 .map(foundItem -> new Item(id, item.getTitle()))
                 .map(repository::save)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Item not found."));
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, String.format("Item with id '%d' not found.", id)));
     }
 
 }
