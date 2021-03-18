@@ -13,3 +13,16 @@ A RESTful service to create, retrieve, update and delete shopping items
     {
       "title": "My new item"
     }
+
+#### Api responses
+
+    200     # on successful POST, PUT, GET
+    204     # on successful DELETE (empty body)
+    404     # on failed PUT and DELETE (when item not found)
+
+### Possible improvements
+
+* Introduce Logging
+* Respond with "201 Created" after successful POST
+* Use api versioning
+* Automated test pipeline using Github Actions
