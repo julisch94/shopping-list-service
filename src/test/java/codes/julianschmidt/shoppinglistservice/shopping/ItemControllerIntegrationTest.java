@@ -60,14 +60,21 @@ class ItemControllerIntegrationTest {
                 .contentType(MediaType.APPLICATION_JSON)
                 .param("title", "my second item"));
 
-        mockMvc.perform(delete(ENDPOINT)
-                .contentType(MediaType.APPLICATION_JSON)
-                .param("id", "1"));
+        mockMvc.perform(delete(ENDPOINT + "/1")
+                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().is(204));
 
         mockMvc.perform(get(ENDPOINT))
                 .andExpect(status().is(200))
                 .andExpect(jsonPath("[0].id").value(2))
                 .andExpect(jsonPath("[0].title").value("my second item"));
+    }
+
+    @Test
+    void deleteShouldReturnErrorWhenNotFound() throws Exception {
+        mockMvc.perform(delete(ENDPOINT + "/1")
+                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().is(404));
     }
 
     @Test

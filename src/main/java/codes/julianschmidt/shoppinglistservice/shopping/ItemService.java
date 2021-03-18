@@ -29,6 +29,9 @@ public class ItemService {
     }
 
     public void deleteItem(long id) {
+        if (!repository.existsById(id)) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Item not found.");
+        }
         repository.deleteById(id);
     }
 

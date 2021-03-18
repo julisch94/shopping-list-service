@@ -2,11 +2,14 @@ package codes.julianschmidt.shoppinglistservice.shopping;
 
 import java.util.List;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import codes.julianschmidt.shoppinglistservice.shopping.dto.CreateItemDto;
@@ -41,8 +44,9 @@ public class ItemController {
         return service.updateItem(item);
     }
 
-    @DeleteMapping(path = ENDPOINT)
-    public void deleteItem(long id) {
+    @DeleteMapping(path = ENDPOINT + "/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void deleteItem(@PathVariable long id) {
         service.deleteItem(id);
     }
 
