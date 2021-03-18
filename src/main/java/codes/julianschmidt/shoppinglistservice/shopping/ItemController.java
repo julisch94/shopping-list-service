@@ -12,8 +12,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import codes.julianschmidt.shoppinglistservice.shopping.dto.CreateItemDto;
-import codes.julianschmidt.shoppinglistservice.shopping.dto.UpdateItemDto;
+import codes.julianschmidt.shoppinglistservice.shopping.dto.ItemDto;
 import codes.julianschmidt.shoppinglistservice.shopping.model.Item;
 
 @RestController()
@@ -30,7 +29,7 @@ public class ItemController {
 
     @PostMapping(path = ENDPOINT)
     @ResponseBody
-    public Item createItem(CreateItemDto item) {
+    public Item createItem(ItemDto item) {
         return service.createItem(item);
     }
 
@@ -39,9 +38,9 @@ public class ItemController {
         return service.findAll();
     }
 
-    @PutMapping(path = ENDPOINT)
-    public Item updateItem(UpdateItemDto item) {
-        return service.updateItem(item);
+    @PutMapping(path = ENDPOINT + "/{id}")
+    public Item updateItem(@PathVariable long id, ItemDto item) {
+        return service.updateItem(id, item);
     }
 
     @DeleteMapping(path = ENDPOINT + "/{id}")

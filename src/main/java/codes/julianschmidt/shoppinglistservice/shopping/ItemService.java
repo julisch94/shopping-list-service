@@ -6,8 +6,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 import org.springframework.web.server.ResponseStatusException;
 
-import codes.julianschmidt.shoppinglistservice.shopping.dto.CreateItemDto;
-import codes.julianschmidt.shoppinglistservice.shopping.dto.UpdateItemDto;
+import codes.julianschmidt.shoppinglistservice.shopping.dto.ItemDto;
 import codes.julianschmidt.shoppinglistservice.shopping.model.Item;
 
 @Component
@@ -19,7 +18,7 @@ public class ItemService {
         this.repository = repository;
     }
 
-    public Item createItem(CreateItemDto item) {
+    public Item createItem(ItemDto item) {
         Item newItem = new Item(item.getTitle());
         return repository.save(newItem);
     }
@@ -35,9 +34,9 @@ public class ItemService {
         repository.deleteById(id);
     }
 
-    public Item updateItem(UpdateItemDto item) {
-        return repository.findById(item.getId())
-                .map(foundItem -> new Item(foundItem.getId(), item.getTitle()))
+    public Item updateItem(long id, ItemDto item) {
+        return repository.findById(id)
+                .map(foundItem -> new Item(id, item.getTitle()))
                 .map(repository::save)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Item not found."));
     }

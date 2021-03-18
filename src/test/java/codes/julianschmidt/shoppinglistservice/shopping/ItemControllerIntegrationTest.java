@@ -83,10 +83,9 @@ class ItemControllerIntegrationTest {
                 .contentType(MediaType.APPLICATION_JSON)
                 .param("title", "my item"));
 
-        mockMvc.perform(put(ENDPOINT)
+        mockMvc.perform(put(ENDPOINT + "/1")
                 .contentType(MediaType.APPLICATION_JSON)
-                .param("title", "new title")
-                .param("id", "1"))
+                .param("title", "new title"))
                 .andExpect(status().is(200))
                 .andExpect(jsonPath("id").value(1))
                 .andExpect(jsonPath("title").value("new title"));
@@ -94,10 +93,9 @@ class ItemControllerIntegrationTest {
 
     @Test
     void shouldReturnErrorWhenItemNotFound() throws Exception {
-        mockMvc.perform(put(ENDPOINT)
+        mockMvc.perform(put(ENDPOINT + "/1")
                 .contentType(MediaType.APPLICATION_JSON)
-                .param("title", "new title")
-                .param("id", "1"))
+                .param("title", "new title"))
                 .andExpect(status().is(404))
                 .andExpect(status().reason("Item not found."));
     }

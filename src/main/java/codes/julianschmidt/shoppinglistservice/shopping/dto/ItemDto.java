@@ -1,6 +1,6 @@
 package codes.julianschmidt.shoppinglistservice.shopping.dto;
 
-public class CreateItemDto {
+public class ItemDto {
 
     private String title;
 
