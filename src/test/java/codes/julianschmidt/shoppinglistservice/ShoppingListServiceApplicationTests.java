@@ -4,7 +4,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import org.junit.jupiter.api.Test;
@@ -28,7 +28,8 @@ class ShoppingListServiceApplicationTests {
         mockMvc.perform(post("/item")
                 .contentType(MediaType.APPLICATION_JSON)
                 .param("title", "Hello World"))
-                .andExpect(content().string("{\"id\":1,\"title\":\"Hello World\"}"));
+                .andExpect(jsonPath("id").value(1))
+                .andExpect(jsonPath("title").value("Hello World"));
     }
 
     @Test
@@ -40,9 +41,11 @@ class ShoppingListServiceApplicationTests {
                 .contentType(MediaType.APPLICATION_JSON)
                 .param("title", "my second item"));
 
-        String expected = "[{\"id\":1,\"title\":\"my item\"},{\"id\":2,\"title\":\"my second item\"}]";
         mockMvc.perform(get("/item"))
-                .andExpect(content().string(expected));
+                .andExpect(jsonPath("[0].id").value(1))
+                .andExpect(jsonPath("[0].title").value("my item"))
+                .andExpect(jsonPath("[1].id").value(2))
+                .andExpect(jsonPath("[1].title").value("my second item"));
     }
 
     @Test
@@ -58,9 +61,9 @@ class ShoppingListServiceApplicationTests {
                 .contentType(MediaType.APPLICATION_JSON)
                 .param("id", "1"));
 
-        String expected = "[{\"id\":2,\"title\":\"my second item\"}]";
         mockMvc.perform(get("/item"))
-                .andExpect(content().string(expected));
+                .andExpect(jsonPath("[0].id").value(2))
+                .andExpect(jsonPath("[0].title").value("my second item"));
     }
 
     @Test
@@ -73,7 +76,8 @@ class ShoppingListServiceApplicationTests {
                 .contentType(MediaType.APPLICATION_JSON)
                 .param("title", "new title")
                 .param("id", "1"))
-                .andExpect(content().string("{\"id\":1,\"title\":\"new title\"}"));
+                .andExpect(jsonPath("id").value(1))
+                .andExpect(jsonPath("title").value("new title"));
     }
 
     @Test
@@ -96,8 +100,10 @@ class ShoppingListServiceApplicationTests {
                 .contentType(MediaType.APPLICATION_JSON)
                 .param("title", "Hello World"));
 
-        String expected = "[{\"id\":1,\"title\":\"my item\"},{\"id\":2,\"title\":\"Hello World\"}]";
         mockMvc.perform(get("/item"))
-                .andExpect(content().string(expected));
+                .andExpect(jsonPath("[0].id").value(1))
+                .andExpect(jsonPath("[0].title").value("my item"))
+                .andExpect(jsonPath("[1].id").value(2))
+                .andExpect(jsonPath("[1].title").value("Hello World"));
     }
 }
