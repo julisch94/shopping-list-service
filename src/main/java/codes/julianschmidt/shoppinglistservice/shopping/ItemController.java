@@ -14,11 +14,11 @@ import codes.julianschmidt.shoppinglistservice.shopping.dto.UpdateItemDto;
 import codes.julianschmidt.shoppinglistservice.shopping.model.Item;
 
 @RestController()
-public class ShoppingController {
+public class ItemController {
 
-    private final ShoppingService service;
+    private final ItemService service;
 
-    public ShoppingController(ShoppingService service) {
+    public ItemController(ItemService service) {
         this.service = service;
     }
 

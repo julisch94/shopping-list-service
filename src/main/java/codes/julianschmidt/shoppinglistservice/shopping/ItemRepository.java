@@ -6,6 +6,6 @@ import org.springframework.stereotype.Repository;
 import codes.julianschmidt.shoppinglistservice.shopping.model.Item;
 
 @Repository
-public interface ShoppingRepository extends JpaRepository<Item, Long> {
+public interface ItemRepository extends JpaRepository<Item, Long> {
     
 }

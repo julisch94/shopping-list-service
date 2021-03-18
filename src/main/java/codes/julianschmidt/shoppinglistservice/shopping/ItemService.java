@@ -11,11 +11,11 @@ import codes.julianschmidt.shoppinglistservice.shopping.dto.UpdateItemDto;
 import codes.julianschmidt.shoppinglistservice.shopping.model.Item;
 
 @Component
-public class ShoppingService {
+public class ItemService {
 
-    private final ShoppingRepository repository;
+    private final ItemRepository repository;
 
-    public ShoppingService(ShoppingRepository repository) {
+    public ItemService(ItemRepository repository) {
         this.repository = repository;
     }
 
