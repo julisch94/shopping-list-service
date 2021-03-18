@@ -16,29 +16,32 @@ import codes.julianschmidt.shoppinglistservice.shopping.model.Item;
 @RestController()
 public class ItemController {
 
+    // protected for testing purposes only
+    protected static final String ENDPOINT = "/items";
+
     private final ItemService service;
 
     public ItemController(ItemService service) {
         this.service = service;
     }
 
-    @PostMapping("/item")
+    @PostMapping(path = ENDPOINT)
     @ResponseBody
     public Item createItem(CreateItemDto item) {
         return service.createItem(item);
     }
 
-    @GetMapping("/item")
+    @GetMapping(path = ENDPOINT)
     public List<Item> findAll() {
         return service.findAll();
     }
 
-    @PutMapping("/item")
+    @PutMapping(path = ENDPOINT)
     public Item updateItem(UpdateItemDto item) {
         return service.updateItem(item);
     }
 
-    @DeleteMapping("/item")
+    @DeleteMapping(path = ENDPOINT)
     public void deleteItem(long id) {
         service.deleteItem(id);
     }
