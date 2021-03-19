@@ -29,3 +29,4 @@ A Spring Boot based RESTful service to create, retrieve, update and delete shopp
 * Introduce Logging
 * Respond with "201 Created" after successful POST
 * Use api versioning
+* Use Swagger UI or Open Api 3 to host api documentation
