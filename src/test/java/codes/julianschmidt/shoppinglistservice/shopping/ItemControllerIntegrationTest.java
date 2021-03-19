@@ -8,6 +8,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -25,6 +26,7 @@ class ItemControllerIntegrationTest {
     private MockMvc mockMvc;
 
     @Test
+    @DisplayName("The user should be able to create a shopping list item.")
     void shouldAddIdOnCreation() throws Exception {
         mockMvc.perform(post(ENDPOINT)
                 .contentType(MediaType.APPLICATION_JSON)
@@ -35,6 +37,7 @@ class ItemControllerIntegrationTest {
     }
 
     @Test
+    @DisplayName("The user should be able to retrieve all shopping list items.")
     void shouldCreateItems() throws Exception {
         mockMvc.perform(post(ENDPOINT)
                 .contentType(MediaType.APPLICATION_JSON)
@@ -52,6 +55,7 @@ class ItemControllerIntegrationTest {
     }
 
     @Test
+    @DisplayName("The user should be able to delete a shopping list item.")
     void shouldDeleteItem() throws Exception {
         mockMvc.perform(post(ENDPOINT)
                 .contentType(MediaType.APPLICATION_JSON)
@@ -71,6 +75,7 @@ class ItemControllerIntegrationTest {
     }
 
     @Test
+    @DisplayName("The user should see an error when trying to delete a non-existing item.")
     void deleteShouldReturnErrorWhenNotFound() throws Exception {
         mockMvc.perform(delete(ENDPOINT + "/42")
                 .contentType(MediaType.APPLICATION_JSON))
@@ -79,6 +84,7 @@ class ItemControllerIntegrationTest {
     }
 
     @Test
+    @DisplayName("The user should be able update a shopping list item.")
     void shouldUpdateItem() throws Exception {
         mockMvc.perform(post(ENDPOINT)
                 .contentType(MediaType.APPLICATION_JSON)
@@ -93,6 +99,7 @@ class ItemControllerIntegrationTest {
     }
 
     @Test
+    @DisplayName("The user should see an error when trying to update a non-existing item.")
     void shouldReturnErrorWhenItemNotFound() throws Exception {
         mockMvc.perform(put(ENDPOINT + "/5")
                 .contentType(MediaType.APPLICATION_JSON)
@@ -101,22 +108,5 @@ class ItemControllerIntegrationTest {
                 .andExpect(status().reason("Item with id '5' not found."));
     }
 
-    @Test
-    void shouldFindAllItems() throws Exception {
-        mockMvc.perform(post(ENDPOINT)
-                .contentType(MediaType.APPLICATION_JSON)
-                .param("title", "my item"));
-
-        mockMvc.perform(post(ENDPOINT)
-                .contentType(MediaType.APPLICATION_JSON)
-                .param("title", "Hello World"));
-
-        mockMvc.perform(get(ENDPOINT))
-                .andExpect(status().is(200))
-                .andExpect(jsonPath("[0].id").value(1))
-                .andExpect(jsonPath("[0].title").value("my item"))
-                .andExpect(jsonPath("[1].id").value(2))
-                .andExpect(jsonPath("[1].title").value("Hello World"));
-    }
 
 }
