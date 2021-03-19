@@ -1,5 +1,8 @@
 # Shopping List Service
-A RESTful service to create, retrieve, update and delete shopping items
+
+![Coverage](./.github/badges/jacoco.svg)
+
+A Spring Boot based RESTful service to create, retrieve, update and delete shopping items.
 
 ### REST api endpoints
 
@@ -25,4 +28,3 @@ A RESTful service to create, retrieve, update and delete shopping items
 * Introduce Logging
 * Respond with "201 Created" after successful POST
 * Use api versioning
-* Automated test pipeline using Github Actions
