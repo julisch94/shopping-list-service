@@ -3,6 +3,7 @@ plugins {
 	id 'io.spring.dependency-management' version '1.0.11.RELEASE'
 	id 'java'
 	id 'war'
+	id 'jacoco'
 }
 
 group = 'codes.julianschmidt'
@@ -27,5 +28,33 @@ dependencies {
 }
 
 test {
+	finalizedBy jacocoTestReport // report is always generated after tests run
+}
+
+jacocoTestReport {
+	dependsOn test // tests are required to run before generating the report
+
+	reports {
+		csv.enabled = true
+		xml.enabled = true
+	}
+}
+
+jacoco {
+	toolVersion = "0.8.6"
+	reportsDirectory = file("$buildDir/jacoco")
+}
+
+test {
 	useJUnitPlatform()
+}
+
+jacocoTestCoverageVerification {
+	violationRules {
+		rule {
+			limit {
+				minimum = 1
+			}
+		}
+	}
 }
