@@ -1,5 +1,6 @@
 # Shopping List Service
 
+[![Actions Status](https://github.com/julisch94/shopping-list-service/actions/workflows/test.yml/badge.svg?branch=main)](https://github.com/julisch94/shopping-list-service/actions)
 ![Coverage](./.github/badges/jacoco.svg)
 
 A Spring Boot based RESTful service to create, retrieve, update and delete shopping items.
