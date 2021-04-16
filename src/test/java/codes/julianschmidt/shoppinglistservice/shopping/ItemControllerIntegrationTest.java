@@ -8,6 +8,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+import org.json.JSONObject;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,7 +31,7 @@ class ItemControllerIntegrationTest {
     void shouldAddIdOnCreation() throws Exception {
         mockMvc.perform(post(ENDPOINT)
                 .contentType(MediaType.APPLICATION_JSON)
-                .content("{\"title\": \"Hello World\"}"))
+                .content(new JSONObject().put("title", "Hello World").toString()))
                 .andExpect(status().is(200))
                 .andExpect(jsonPath("id").value(1))
                 .andExpect(jsonPath("title").value("Hello World"));
@@ -41,10 +42,10 @@ class ItemControllerIntegrationTest {
     void shouldCreateItems() throws Exception {
         mockMvc.perform(post(ENDPOINT)
                 .contentType(MediaType.APPLICATION_JSON)
-                .content("{\"title\": \"my item\"}"));
+                .content(new JSONObject().put("title", "my item").toString()));
         mockMvc.perform(post(ENDPOINT)
                 .contentType(MediaType.APPLICATION_JSON)
-                .content("{\"title\": \"my second item\"}"));
+                .content(new JSONObject().put("title", "my second item").toString()));
 
         mockMvc.perform(get(ENDPOINT))
                 .andExpect(status().is(200))
@@ -59,10 +60,10 @@ class ItemControllerIntegrationTest {
     void shouldDeleteItem() throws Exception {
         mockMvc.perform(post(ENDPOINT)
                 .contentType(MediaType.APPLICATION_JSON)
-                .content("{\"title\": \"my item\"}"));
+                .content(new JSONObject().put("title", "my item").toString()));
         mockMvc.perform(post(ENDPOINT)
                 .contentType(MediaType.APPLICATION_JSON)
-                .content("{\"title\": \"my second item\"}"));
+                .content(new JSONObject().put("title", "my second item").toString()));
 
         mockMvc.perform(delete(ENDPOINT + "/1")
                 .contentType(MediaType.APPLICATION_JSON))
@@ -88,11 +89,11 @@ class ItemControllerIntegrationTest {
     void shouldUpdateItem() throws Exception {
         mockMvc.perform(post(ENDPOINT)
                 .contentType(MediaType.APPLICATION_JSON)
-                .content("{\"title\": \"my item\"}"));
+                .content(new JSONObject().put("title", "my item").toString()));
 
         mockMvc.perform(put(ENDPOINT + "/1")
                 .contentType(MediaType.APPLICATION_JSON)
-                .content("{\"title\": \"new title\"}"))
+                .content(new JSONObject().put("title", "new title").toString()))
                 .andExpect(status().is(200))
                 .andExpect(jsonPath("id").value(1))
                 .andExpect(jsonPath("title").value("new title"));
@@ -103,7 +104,7 @@ class ItemControllerIntegrationTest {
     void shouldReturnErrorWhenItemNotFound() throws Exception {
         mockMvc.perform(put(ENDPOINT + "/5")
                 .contentType(MediaType.APPLICATION_JSON)
-                .content("{\"title\": \"new title\"}"))
+                .content(new JSONObject().put("title", "new title").toString()))
                 .andExpect(status().is(404))
                 .andExpect(status().reason("Item with id '5' not found."));
     }

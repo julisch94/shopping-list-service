@@ -21,6 +21,9 @@ dependencies {
 	// database driver
 	runtime 'com.h2database:h2'
 
+	// JSON library for integration tests
+	testImplementation 'org.json:json:20210307'
+
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	providedRuntime 'org.springframework.boot:spring-boot-starter-tomcat'
