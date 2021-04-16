@@ -30,7 +30,7 @@ class ItemControllerIntegrationTest {
     void shouldAddIdOnCreation() throws Exception {
         mockMvc.perform(post(ENDPOINT)
                 .contentType(MediaType.APPLICATION_JSON)
-                .param("title", "Hello World"))
+                .content("{\"title\": \"Hello World\"}"))
                 .andExpect(status().is(200))
                 .andExpect(jsonPath("id").value(1))
                 .andExpect(jsonPath("title").value("Hello World"));
@@ -41,10 +41,10 @@ class ItemControllerIntegrationTest {
     void shouldCreateItems() throws Exception {
         mockMvc.perform(post(ENDPOINT)
                 .contentType(MediaType.APPLICATION_JSON)
-                .param("title", "my item"));
+                .content("{\"title\": \"my item\"}"));
         mockMvc.perform(post(ENDPOINT)
                 .contentType(MediaType.APPLICATION_JSON)
-                .param("title", "my second item"));
+                .content("{\"title\": \"my second item\"}"));
 
         mockMvc.perform(get(ENDPOINT))
                 .andExpect(status().is(200))
@@ -59,10 +59,10 @@ class ItemControllerIntegrationTest {
     void shouldDeleteItem() throws Exception {
         mockMvc.perform(post(ENDPOINT)
                 .contentType(MediaType.APPLICATION_JSON)
-                .param("title", "my item"));
+                .content("{\"title\": \"my item\"}"));
         mockMvc.perform(post(ENDPOINT)
                 .contentType(MediaType.APPLICATION_JSON)
-                .param("title", "my second item"));
+                .content("{\"title\": \"my second item\"}"));
 
         mockMvc.perform(delete(ENDPOINT + "/1")
                 .contentType(MediaType.APPLICATION_JSON))
@@ -88,11 +88,11 @@ class ItemControllerIntegrationTest {
     void shouldUpdateItem() throws Exception {
         mockMvc.perform(post(ENDPOINT)
                 .contentType(MediaType.APPLICATION_JSON)
-                .param("title", "my item"));
+                .content("{\"title\": \"my item\"}"));
 
         mockMvc.perform(put(ENDPOINT + "/1")
                 .contentType(MediaType.APPLICATION_JSON)
-                .param("title", "new title"))
+                .content("{\"title\": \"new title\"}"))
                 .andExpect(status().is(200))
                 .andExpect(jsonPath("id").value(1))
                 .andExpect(jsonPath("title").value("new title"));
@@ -103,7 +103,7 @@ class ItemControllerIntegrationTest {
     void shouldReturnErrorWhenItemNotFound() throws Exception {
         mockMvc.perform(put(ENDPOINT + "/5")
                 .contentType(MediaType.APPLICATION_JSON)
-                .param("title", "new title"))
+                .content("{\"title\": \"new title\"}"))
                 .andExpect(status().is(404))
                 .andExpect(status().reason("Item with id '5' not found."));
     }
