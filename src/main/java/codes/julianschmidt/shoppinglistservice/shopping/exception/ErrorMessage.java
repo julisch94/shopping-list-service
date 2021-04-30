@@ -4,10 +4,10 @@ import java.time.Instant;
 
 class ErrorMessage {
 
-    private int statusCode;
-    private Instant timestamp;
-    private String message;
-    private String description;
+    private final int statusCode;
+    private final Instant timestamp;
+    private final String message;
+    private final String description;
 
     public ErrorMessage(int statusCode, Instant timestamp, String message, String description) {
         this.statusCode = statusCode;
