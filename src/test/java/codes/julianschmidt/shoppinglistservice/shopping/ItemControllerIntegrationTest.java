@@ -33,7 +33,7 @@ class ItemControllerIntegrationTest {
         mockMvc.perform(post(ENDPOINT)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(new JSONObject().put("title", "Hello World").toString()))
-                .andExpect(status().is(200))
+                .andExpect(status().is(201))
                 .andExpect(jsonPath("id").value(1))
                 .andExpect(jsonPath("title").value("Hello World"));
     }

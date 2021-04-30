@@ -29,6 +29,7 @@ public class ItemController {
 
     @PostMapping
     @ResponseBody
+    @ResponseStatus(HttpStatus.CREATED)
     public Item createItem(@RequestBody ItemDto item) {
         return service.createItem(item);
     }
