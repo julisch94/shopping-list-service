@@ -2,11 +2,10 @@ package codes.julianschmidt.shoppinglistservice.shopping;
 
 import java.util.List;
 
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
-import org.springframework.web.server.ResponseStatusException;
 
 import codes.julianschmidt.shoppinglistservice.shopping.dto.ItemDto;
+import codes.julianschmidt.shoppinglistservice.shopping.exception.ItemNotFoundException;
 import codes.julianschmidt.shoppinglistservice.shopping.model.Item;
 
 @Component
@@ -19,7 +18,7 @@ public class ItemService {
     }
 
     public Item createItem(ItemDto item) {
-        Item newItem = new Item(item.getTitle());
+        var newItem = new Item(item.getTitle());
         return repository.save(newItem);
     }
 
@@ -29,16 +28,17 @@ public class ItemService {
 
     public void deleteItem(long id) {
         if (!repository.existsById(id)) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, String.format("Item with id '%d' not found.", id));
+            throw new ItemNotFoundException("Deleting item failed", id);
         }
         repository.deleteById(id);
     }
 
-    public Item updateItem(long id, ItemDto item) {
-        return repository.findById(id)
-                .map(foundItem -> new Item(id, item.getTitle()))
-                .map(repository::save)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, String.format("Item with id '%d' not found.", id)));
+    public Item updateItem(long id, ItemDto itemDto) {
+        if (!repository.existsById(id)) {
+            throw new ItemNotFoundException("Updating item failed", id);
+        }
+        var item = new Item(id, itemDto.getTitle());
+        return repository.save(item);
     }
 
 }

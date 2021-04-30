@@ -82,7 +82,10 @@ class ItemControllerIntegrationTest {
         mockMvc.perform(delete(ENDPOINT + "/42")
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().is(404))
-                .andExpect(status().reason("Item with id '42' not found."));
+                .andExpect(jsonPath("statusCode").value(404))
+                .andExpect(jsonPath("timestamp").exists())
+                .andExpect(jsonPath("message").value("Deleting item failed - Reason: Item with id '42' was not found"))
+                .andExpect(jsonPath("description").exists());
     }
 
     @Test
@@ -107,7 +110,10 @@ class ItemControllerIntegrationTest {
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(new JSONObject().put("title", "new title").toString()))
                 .andExpect(status().is(404))
-                .andExpect(status().reason("Item with id '5' not found."));
+                .andExpect(jsonPath("statusCode").value(404))
+                .andExpect(jsonPath("timestamp").exists())
+                .andExpect(jsonPath("message").value("Updating item failed - Reason: Item with id '5' was not found"))
+                .andExpect(jsonPath("description").exists());
     }
 
 
