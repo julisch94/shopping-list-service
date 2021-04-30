@@ -4,6 +4,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
+import org.springframework.core.style.ToStringCreator;
+
 @Entity
 public class Item {
 
@@ -33,4 +35,11 @@ public class Item {
         return title;
     }
 
+    @Override
+    public String toString() {
+        return new ToStringCreator(this)
+                .append("id", id)
+                .append("title", title)
+                .toString();
+    }
 }
