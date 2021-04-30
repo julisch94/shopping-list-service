@@ -1,6 +1,5 @@
 package codes.julianschmidt.shoppinglistservice.shopping;
 
-import static codes.julianschmidt.shoppinglistservice.shopping.ItemController.ENDPOINT;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -22,6 +21,8 @@ import org.springframework.test.web.servlet.MockMvc;
 @AutoConfigureMockMvc
 @DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD)
 class ItemControllerIntegrationTest {
+
+    private static final String ENDPOINT = "/items";
 
     @Autowired
     private MockMvc mockMvc;
