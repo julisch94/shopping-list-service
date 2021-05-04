@@ -5,6 +5,8 @@ name: Deploy Test Coverage to GitHub Pages
 
 on:
   push:
+    branches:
+      - main
 
 jobs:
   build:
